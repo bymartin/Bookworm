@@ -42,6 +42,14 @@ struct DetailView: View {
                 RatingView(rating: .constant(Int(self.book.rating)))
                     .font(.largeTitle)
                 
+                HStack {
+                    Text("Date added: ")
+                        .font(.subheadline)
+                    Text(self.convertDateToString(date: self.book.date))
+                        .font(.subheadline)
+                        .foregroundColor(.accentColor)
+                }
+                
                 Spacer()
             }
         }
@@ -57,6 +65,16 @@ struct DetailView: View {
         }) {
             Image(systemName: "trash")
         })
+    }
+    
+    func convertDateToString(date: Date?) -> String {
+        guard let date = date else {
+            return "No date available"
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"
+        return formatter.string(from: date)
     }
     
     func deleteBook() {
